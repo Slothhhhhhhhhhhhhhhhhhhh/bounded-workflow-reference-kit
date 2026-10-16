@@ -1,0 +1,12 @@
+{
+  "name": "bounded-workflow-reference-kit",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.17.1" },
+  "scripts": {
+    "test": "node --test --test-concurrency=1 test/core.test.mjs",
+    "demo": "node demo.mjs"
+  }
+}

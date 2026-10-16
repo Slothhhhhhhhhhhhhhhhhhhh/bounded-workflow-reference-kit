@@ -1,0 +1,32 @@
+{
+  "format": "synthetic-kit-local-evidence-v1",
+  "candidateVersion": "0.1.0",
+  "recordedDateUtc": "2026-10-16",
+  "environment": {"node": "22.17.1", "sqlite": "3.50.0", "platform": "win32", "architecture": "x64"},
+  "scope": "local synthetic fixtures only",
+  "commands": [
+    {"command": "node --check src/workflow.mjs", "result": "passed"},
+    {"command": "node --check src/simulator.mjs", "result": "passed"},
+    {"command": "node demo.mjs", "result": "passed", "sweeps": 3, "recordCounts": [2,4,5], "simulatedEffects": 1},
+    {"command": "node --test --test-concurrency=1 test/core.test.mjs", "result": "passed", "tests": 19, "topLevelCases": 16, "nestedCases": 3, "failed": 0, "cancelled": 0, "skipped": 0, "todo": 0, "reportedDurationMs": 888.6547}
+  ],
+  "passedCases": ["S01", "S02a", "S02b", "S03a", "S03b", "S03c", "S04 page/detail", "S04 injected time", "S04 storage", "S04 malformed JSON", "S04 extra field", "S04 oversized detail", "S06 lost response", "S06 mismatched receipt", "S07 two connections", "S10 exact bytes", "S05 process exit before send", "S06 process exit after acceptance"],
+  "reviewFindings": [
+    {"id": "R01", "severity": "P2", "finding": "Equivalent detail key order caused false conflict", "status": "corrected", "verification": "expanded full suite"},
+    {"id": "R02", "severity": "P3", "finding": "Deadline expiry counted a request never invoked", "status": "corrected", "verification": "expanded full suite"}
+  ],
+  "followupRuns": [
+    {"command": "node --test --test-concurrency=1 test/core.test.mjs", "result": "passed", "tests": 21, "topLevelCases": 18, "nestedCases": 3, "failed": 0, "cancelled": 0, "skipped": 0, "todo": 0, "reportedDurationMs": 996.4088},
+    {"command": "node --test --test-concurrency=1 --test-name-pattern=R03 test/core.test.mjs", "result": "passed", "tests": 1, "failed": 0, "reportedDurationMs": 100.9015, "case": "stale malformed sweep cannot replace completed checkpoint"}
+  ],
+  "finalTestFileCases": 22,
+  "intentionalChildExitCode": 86,
+  "runtimeWarning": "node:sqlite is experimental in this runtime",
+  "unrunOrUnimplemented": ["lease-protected terminal closure", "trusted platform admission", "general process/resource supervisor", "simultaneous multi-process contention", "power loss", "database corruption or loss", "backup restoration", "network filesystems", "other platforms or runtime versions", "provider integration", "hosted deployment", "production verification"],
+  "limitations": [
+    "This is a manually summarized execution receipt, not an independent attestation or benchmark.",
+    "The time-budget case uses an injected clock; cancellation is cooperative and accepted-byte limits are not process memory quotas.",
+    "Receipt confirmation is simulated acceptance, not recipient delivery or exactly-once remote behavior.",
+    "The reviewed candidate manifest privately binds exact file bytes; reruns must be recorded for relevant changes."
+  ]
+}
